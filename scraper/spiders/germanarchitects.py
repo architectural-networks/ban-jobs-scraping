@@ -18,16 +18,15 @@ class GermanarchitectsSpider(scrapy.Spider):
         for job in jobs:
             city = job.xpath('.//address/text()').get()
             job_id = job.xpath('.//dt/a/@href').get()
-            if (city is None) or ('Berlin' not in city) or (job_id in existing_ids):
+            company = job.xpath('.//dd/text()').get() or job.xpath('.//dd/a/text()').get()
+
+            if (city is None) (company is None) or ('Berlin' not in city) or (job_id in existing_ids):
                 continue
 
             date_str = job.xpath('.//time/@datetime').get()
             date = datetime.strptime(date_str, '%d.%m.%y, %H:%M')
-
             title = job.xpath('.//dt/a/text()').get()
-            company = job.xpath('.//dd/a/text()').get()
             url = 'https://www.german-architects.com' + job_id
-
             subtitle = ""
             item = JobsItem(
                 site=self.name,
