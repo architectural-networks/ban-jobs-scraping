@@ -18,6 +18,7 @@ var/
 .scrapy/
 node_modules/
 __pycache__
+.env
 
 # Serverless directories
 .serverless
