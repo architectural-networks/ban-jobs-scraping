@@ -13,6 +13,7 @@ from scraper.models import Session, Job, ScrapingSession
 from dotenv import load_dotenv
 from slack import WebClient
 from slack.errors import SlackApiError
+from scraper.crawl import is_in_aws
 
 load_dotenv()
 import logging
@@ -58,9 +59,14 @@ class JobPipeline(object):
             }
         ]
 
+        channel = "testing"
+        if is_in_aws():
+            channel = "jobs"
+
+
         try:
             response = self.client.chat_postMessage(
-                channel="jobs",
+                channel=channel,
                 blocks=blocks,
                 # icon_url='https://res.cloudinary.com/architecturalnetworks/image/upload/c_scale,w_200/v1596867074/ban/slack_jobs_bot_image_wmohy3.png'
             )
