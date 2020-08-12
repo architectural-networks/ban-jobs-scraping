@@ -16,3 +16,4 @@ class JobsItem(scrapy.Item):
     company = scrapy.Field()
     job_id = scrapy.Field()
     slack = scrapy.Field()
+    image_url = scrapy.Field()

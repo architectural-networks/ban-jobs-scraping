@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 class BaunetzSpider(scrapy.Spider):
     name = 'baunetz'
     allowed_domains = ['baunetz.de']
-    start_urls = ['https://www.baunetz.de/stellenmarkt/index.html?s_text=&s_ort=Berlin']
+    start_urls = ['https://www.baunetz.de/stellenmarkt/index.html?s_ort=Berlin']
 
     def parse(self, response):
         # debug
@@ -30,7 +30,9 @@ class BaunetzSpider(scrapy.Spider):
             subtitle = job.css('div.jobs-liste-eintrag-tag::text').get()
             company = job.css('p.jobs-liste-eintrag-untertitel::text').get()
             url = job.css('div.jobs-liste-eintrag-info a::attr(href)').get().split('?')[0]
-
+            image_url = job.css('img.jobs-liste-eintrag-logo::attr(src)').get()
+            if image_url:
+                image_url = "https://baunetz.de" + image_url
             item = JobsItem(
                 site="baunetz",
                 date=date,
@@ -39,6 +41,6 @@ class BaunetzSpider(scrapy.Spider):
                 subtitle=subtitle,
                 company=company,
                 job_id=job_id,
-
+                image_url=image_url
             )
             yield item

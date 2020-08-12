@@ -13,9 +13,11 @@ class DezeenSpider(scrapy.Spider):
         # debug
         # inspect_response(response, self)
         existing_ids = get_scraped_ids('dezeen')
-        jobs = response.css("li.job_listing")
+        jobs = response.css(".job_listing")
+
         for job in jobs:
             url = job.css("a::attr(href)").get()
+
             job_id = url.split('/')[-2].split("-")[-1]
             if job_id in existing_ids:
                 continue
@@ -26,7 +28,8 @@ class DezeenSpider(scrapy.Spider):
             company = job.xpath('.//h1/a[2]/text()').get().replace('at', '').strip()
             subtitle = job.css('section.job-list-blurb > p::text').get().strip()
 
-            print(subtitle)
+            image_url = job.css('img.company_logo::attr(src)').get()
+
             item = JobsItem(
                 site="dezeen",
                 date=date,
@@ -35,7 +38,7 @@ class DezeenSpider(scrapy.Spider):
                 subtitle=subtitle,
                 company=company,
                 job_id=job_id,
-
+                image_url=image_url
             )
             yield item
 

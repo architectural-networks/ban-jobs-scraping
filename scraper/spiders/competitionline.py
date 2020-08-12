@@ -33,6 +33,9 @@ class CompetitionlineSpider(scrapy.Spider):
             subtitle = ""
             company = job['company_name']
             url = 'https://www.competitionline.com/de/jobs/' + job_id
+            image_url = None
+            if 'company_image' in job:
+                image_url = "https://competitionline-images.imgix.net/" + job['company_image']
 
             item = JobsItem(
                 site=self.name,
@@ -42,6 +45,6 @@ class CompetitionlineSpider(scrapy.Spider):
                 subtitle=subtitle,
                 company=company,
                 job_id=job_id,
-
+                image_url=image_url
             )
             yield item
