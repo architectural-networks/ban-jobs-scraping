@@ -20,7 +20,7 @@ class GermanarchitectsSpider(scrapy.Spider):
             job_id = job.xpath('.//dt/a/@href').get()
             company = job.xpath('.//dd/text()').get() or job.xpath('.//dd/a/text()').get()
 
-            if (city is None) (company is None) or ('Berlin' not in city) or (job_id in existing_ids):
+            if (city is None) or (company is None) or ('Berlin' not in city) or (job_id in existing_ids):
                 continue
 
             date_str = job.xpath('.//time/@datetime').get()
