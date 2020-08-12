@@ -15,6 +15,8 @@ setup()
 sys.modules["sqlite"] = imp.new_module("sqlite")
 sys.modules["sqlite3.dbapi2"] = imp.new_module("sqlite.dbapi2")
 
+logging.getLogger().handlers = [] # Necessary to manage the Log Level of Scrapy in AWS Lambda
+
 
 def is_in_aws():
     return os.getenv('AWS_EXECUTION_ENV') is not None

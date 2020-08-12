@@ -95,3 +95,6 @@ HTTPCACHE_DIR = 'httpcache'
 CLOSESPIDER_PAGECOUNT = 32
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+LOG_ENABLED = True,
+LOG_LEVEL = 'INFO'
