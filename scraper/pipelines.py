@@ -60,7 +60,7 @@ class JobPipeline(object):
 
         try:
             response = self.client.chat_postMessage(
-                channel="testing",
+                channel="jobs",
                 blocks=blocks,
                 # icon_url='https://res.cloudinary.com/architecturalnetworks/image/upload/c_scale,w_200/v1596867074/ban/slack_jobs_bot_image_wmohy3.png'
             )
